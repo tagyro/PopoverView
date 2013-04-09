@@ -8,57 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
-/**************** Support both ARC and non-ARC ********************/
-
-#ifndef SUPPORT_ARC
-#define SUPPORT_ARC
-
-#if __has_feature(objc_arc_weak)                //objc_arc_weak
-#define WEAK weak
-#define __WEAK __weak
-#define STRONG strong
-
-#define AUTORELEASE self
-#define RELEASE self
-#define RETAIN self
-#define CFTYPECAST(exp) (__bridge exp)
-#define TYPECAST(exp) (__bridge_transfer exp)
-#define CFRELEASE(exp) CFRelease(exp)
-#define DEALLOC self
-
-#elif __has_feature(objc_arc)                   //objc_arc
-#define WEAK unsafe_unretained
-#define __WEAK __unsafe_unretained
-#define STRONG strong
-
-#define AUTORELEASE self
-#define RELEASE self
-#define RETAIN self
-#define CFTYPECAST(exp) (__bridge exp)
-#define TYPECAST(exp) (__bridge_transfer exp)
-#define CFRELEASE(exp) CFRelease(exp)
-#define DEALLOC self
-
-#else                                           //none
-#define WEAK assign
-#define __WEAK
-#define STRONG retain
-
-#define AUTORELEASE autorelease
-#define RELEASE release
-#define RETAIN retain
-#define CFTYPECAST(exp) (exp)
-#define TYPECAST(exp) (exp)
-#define CFRELEASE(exp) CFRelease(exp)
-#define DEALLOC dealloc
-
-#endif
-#endif
-
-/******************************************************************/
-
-
 @class PopoverView;
 
 @protocol PopoverViewDelegate <NSObject>
@@ -80,7 +29,7 @@
     
     BOOL above;
     
-    __WEAK id<PopoverViewDelegate> delegate;
+    id<PopoverViewDelegate> delegate;
     
     UIView *parentView;
     
@@ -100,13 +49,13 @@
     BOOL showDividerRects;
 }
 
-@property (nonatomic, STRONG) UIView *titleView;
+@property (nonatomic, retain) UIView *titleView;
 
-@property (nonatomic, STRONG) UIView *contentView;
+@property (nonatomic, retain) UIView *contentView;
 
-@property (nonatomic, STRONG) NSArray *subviewsArray;
+@property (nonatomic, retain) NSArray *subviewsArray;
 
-@property (nonatomic, WEAK) id<PopoverViewDelegate> delegate;
+@property (nonatomic, assign) id<PopoverViewDelegate> delegate;
 
 #pragma mark - Class Static Showing Methods
 

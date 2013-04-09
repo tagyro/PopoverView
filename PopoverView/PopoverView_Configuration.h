@@ -11,19 +11,19 @@
 // BOX GEOMETRY
 
 //Height/width of the actual arrow
-#define kArrowHeight 12.f
+#define kArrowHeight 8
 
 //padding within the box for the contentView
-#define kBoxPadding 10.f
+#define kBoxPadding 0.0f
 
 //control point offset for rounding corners of the main popover box
-#define kCPOffset 1.8f
+#define kCPOffset 0.0f
 
 //radius for the rounded corners of the main popover box
 #define kBoxRadius 4.f
 
 //Curvature value for the arrow.  Set to 0.f to make it linear.
-#define kArrowCurvature 6.f
+#define kArrowCurvature 1.f
 
 //Minimum distance from the side of the arrow to the beginning of curvature for the box
 #define kArrowHorizontalPadding 5.f
@@ -44,28 +44,28 @@
 #define kHorizontalMargin 10.f
 
 //padding along top of icons/images
-#define kImageTopPadding 3.f
+#define kImageTopPadding 0.f
 
 //padding along bottom of icons/images
-#define kImageBottomPadding 3.f
+#define kImageBottomPadding 0.f
 
 
 // DIVIDERS BETWEEN VIEWS
 
 //Bool that turns off/on the dividers
-#define kShowDividersBetweenViews NO
+#define kShowDividersBetweenViews YES
 
 //color for the divider fill
-#define kDividerColor [UIColor colorWithRed:0.329 green:0.341 blue:0.353 alpha:0.15f]
+#define kDividerColor [UIColor colorWithRed:0.663 green:0.725 blue:0.827 alpha:1.000]
 
 
 // BACKGROUND GRADIENT
 
 //bottom color white in gradient bg
-#define kGradientBottomColor [UIColor colorWithRed:0.98f green:0.98f blue:0.98f alpha:kBoxAlpha]
+#define kGradientBottomColor [UIColor colorWithRed:0.871 green:0.894 blue:0.933 alpha:1.000]
 
 //top color white value in gradient bg
-#define kGradientTopColor [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:kBoxAlpha]
+#define kGradientTopColor [UIColor colorWithRed:0.871 green:0.894 blue:0.933 alpha:1.000]
 
 
 // TITLE GRADIENT
@@ -74,10 +74,10 @@
 #define kDrawTitleGradient YES
 
 //bottom color white value in title gradient bg
-#define kGradientTitleBottomColor [UIColor colorWithRed:0.93f green:0.93f blue:0.93f alpha:kBoxAlpha]
+#define kGradientTitleBottomColor [UIColor colorWithRed:0.980 green:0.984 blue:0.988 alpha:1.000]
 
 //top color white value in title gradient bg
-#define kGradientTitleTopColor [UIColor colorWithRed:1.f green:1.f blue:1.f alpha:kBoxAlpha]
+#define kGradientTitleTopColor [UIColor colorWithRed:0.980 green:0.984 blue:0.988 alpha:1.000]
 
 
 // FONTS
@@ -98,15 +98,3 @@
 
 //title text color
 #define kTitleColor [UIColor colorWithRed:0.329 green:0.341 blue:0.353 alpha:1]
-
-
-// BORDER
-
-//bool that turns off/on the border
-#define kDrawBorder NO
-
-//border color
-#define kBorderColor [UIColor blackColor]
-
-//border width
-#define kBorderWidth 1.f

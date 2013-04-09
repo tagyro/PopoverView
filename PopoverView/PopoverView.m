@@ -25,7 +25,7 @@
     PopoverView *popoverView = [[PopoverView alloc] initWithFrame:CGRectZero];
     [popoverView showAtPoint:point inView:view withText:text];
     popoverView.delegate = delegate;
-    [popoverView RELEASE];
+    [popoverView release];
     return popoverView;
 }
 
@@ -33,7 +33,7 @@
     PopoverView *popoverView = [[PopoverView alloc] initWithFrame:CGRectZero];
     [popoverView showAtPoint:point inView:view withTitle:title withText:text];
     popoverView.delegate = delegate;
-    [popoverView RELEASE];
+    [popoverView release];
     return popoverView;
 }
 
@@ -41,7 +41,7 @@
     PopoverView *popoverView = [[PopoverView alloc] initWithFrame:CGRectZero];
     [popoverView showAtPoint:point inView:view withViewArray:viewArray];
     popoverView.delegate = delegate;
-    [popoverView RELEASE];
+    [popoverView release];
     return popoverView;
 }
 
@@ -49,7 +49,7 @@
     PopoverView *popoverView = [[PopoverView alloc] initWithFrame:CGRectZero];
     [popoverView showAtPoint:point inView:view withTitle:title withViewArray:viewArray];
     popoverView.delegate = delegate;
-    [popoverView RELEASE];
+    [popoverView release];
     return popoverView;
 }
 
@@ -57,7 +57,7 @@
     PopoverView *popoverView = [[PopoverView alloc] initWithFrame:CGRectZero];
     [popoverView showAtPoint:point inView:view withStringArray:stringArray];
     popoverView.delegate = delegate;
-    [popoverView RELEASE];
+    [popoverView release];
     return popoverView;
 }
 
@@ -65,7 +65,7 @@
     PopoverView *popoverView = [[PopoverView alloc] initWithFrame:CGRectZero];
     [popoverView showAtPoint:point inView:view withTitle:title withStringArray:stringArray];
     popoverView.delegate = delegate;
-    [popoverView RELEASE];
+    [popoverView release];
     return popoverView;
 }
 
@@ -73,7 +73,7 @@
     PopoverView *popoverView = [[PopoverView alloc] initWithFrame:CGRectZero];
     [popoverView showAtPoint:point inView:view withStringArray:stringArray withImageArray:imageArray];
     popoverView.delegate = delegate;
-    [popoverView RELEASE];
+    [popoverView release];
     return popoverView;
 }
 
@@ -81,7 +81,7 @@
     PopoverView *popoverView = [[PopoverView alloc] initWithFrame:CGRectZero];
     [popoverView showAtPoint:point inView:view withTitle:title withStringArray:stringArray withImageArray:imageArray];
     popoverView.delegate = delegate;
-    [popoverView RELEASE];
+    [popoverView release];
     return popoverView;
 }
 
@@ -89,7 +89,7 @@
     PopoverView *popoverView = [[PopoverView alloc] initWithFrame:CGRectZero];
     [popoverView showAtPoint:point inView:view withTitle:title withContentView:cView];
     popoverView.delegate = delegate;
-    [popoverView RELEASE];
+    [popoverView release];
     return popoverView;
 }
 
@@ -97,7 +97,7 @@
     PopoverView *popoverView = [[PopoverView alloc] initWithFrame:CGRectZero];
     [popoverView showAtPoint:point inView:view withContentView:cView];
     popoverView.delegate = delegate;
-    [popoverView RELEASE];
+    [popoverView release];
     return popoverView;
 }
 
@@ -124,14 +124,14 @@
     self.subviewsArray = nil;
     
     if (dividerRects) {
-        [dividerRects RELEASE];
+        [dividerRects release];
         dividerRects = nil;
     }
     
     self.contentView = nil;
     self.titleView = nil;
     
-    [super DEALLOC];
+    [super dealloc];
 }
 
 
@@ -172,7 +172,7 @@
     textView.textColor = kTextColor;
     textView.text = text;
     
-    [self showAtPoint:point inView:view withViewArray:[NSArray arrayWithObject:[textView AUTORELEASE]]];
+    [self showAtPoint:point inView:view withViewArray:[NSArray arrayWithObject:[textView autorelease]]];
 }
 
 - (void)showAtPoint:(CGPoint)point inView:(UIView *)view withTitle:(NSString *)title withText:(NSString *)text
@@ -191,7 +191,7 @@
     textView.textColor = kTextColor;
     textView.text = text;
     
-    [self showAtPoint:point inView:view withTitle:title withViewArray:[NSArray arrayWithObject:[textView AUTORELEASE]]];
+    [self showAtPoint:point inView:view withTitle:title withViewArray:[NSArray arrayWithObject:[textView autorelease]]];
 }
 
 - (void)showAtPoint:(CGPoint)point inView:(UIView *)view withViewArray:(NSArray *)viewArray
@@ -222,6 +222,8 @@
         i++;
     }
     
+    //totalWidth += 50;
+    
     //If dividers are enabled, then we allocate the divider rect array.  This will hold NSValues
     if (kShowDividersBetweenViews) {
         dividerRects = [[NSMutableArray alloc] initWithCapacity:viewArray.count-1];
@@ -241,7 +243,8 @@
         } else {
             //If the view is not flexible width, then we position it centered in the view
             //without stretching it.
-            view.frame = CGRectMake(floorf(CGRectGetMinX(boxFrame) + totalWidth*0.5f - view.frame.size.width*0.5f), view.frame.origin.y, view.frame.size.width, view.frame.size.height);
+//            NSLog(@"frame set");
+            view.frame = CGRectMake(0, view.frame.origin.y, totalWidth, 58);
         }
         
         //and if dividers are enabled, we record their position for the drawing methods
@@ -261,7 +264,11 @@
     
     self.subviewsArray = viewArray;
     
-    [self showAtPoint:point inView:view withContentView:[container AUTORELEASE]];
+    container.layer.cornerRadius = kBoxRadius;
+    container.layer.masksToBounds = YES;
+    container.backgroundColor = [UIColor colorWithRed:0.871 green:0.894 blue:0.933 alpha:1.000];
+    
+    [self showAtPoint:point inView:view withContentView:[container autorelease]];
 }
 
 - (void)showAtPoint:(CGPoint)point inView:(UIView *)view withTitle:(NSString *)title withViewArray:(NSArray *)viewArray
@@ -340,38 +347,38 @@
         self.titleView = titleLabel;
     }
     
-    [container addSubview:[titleLabel AUTORELEASE]];
+    [container addSubview:[titleLabel autorelease]];
     
     container.frame = CGRectMake(0, 0, totalWidth, totalHeight);
     
     self.subviewsArray = viewArray;
     
-    [self showAtPoint:point inView:view withContentView:[container AUTORELEASE]];
+    [self showAtPoint:point inView:view withContentView:[container autorelease]];
 }
 
 - (void)showAtPoint:(CGPoint)point inView:(UIView *)view withStringArray:(NSArray *)stringArray
 {
     NSMutableArray *labelArray = [[NSMutableArray alloc] initWithCapacity:stringArray.count];
     
-    UIFont *font = kTextFont;
+    UIFont *font = regular16;
     
     for (NSString *string in stringArray) {
         CGSize textSize = [string sizeWithFont:font];
         UIButton *textButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, textSize.width, textSize.height)];
         textButton.backgroundColor = [UIColor clearColor];
         textButton.titleLabel.font = font;
-        textButton.titleLabel.textAlignment = kTextAlignment;
-        textButton.titleLabel.textColor = kTextColor;
+        textButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        textButton.titleLabel.textColor = textNormalColor;
         [textButton setTitle:string forState:UIControlStateNormal];
         textButton.layer.cornerRadius = 4.f;
-        [textButton setTitleColor:kTextColor forState:UIControlStateNormal];
-        [textButton setTitleColor:kTextHighlightColor forState:UIControlStateHighlighted];
+        [textButton setTitleColor:normalButtonColor forState:UIControlStateNormal];
+        [textButton setTitleColor:downButtonColor forState:UIControlStateHighlighted];
         [textButton addTarget:self action:@selector(didTapButton:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [labelArray addObject:[textButton AUTORELEASE]];
+                
+        [labelArray addObject:[textButton autorelease]];
     }
     
-    [self showAtPoint:point inView:view withViewArray:[labelArray AUTORELEASE]];
+    [self showAtPoint:point inView:view withViewArray:[labelArray autorelease]];
 }
 
 - (void)showAtPoint:(CGPoint)point inView:(UIView *)view withTitle:(NSString *)title withStringArray:(NSArray *)stringArray
@@ -393,10 +400,10 @@
         [textButton setTitleColor:kTextHighlightColor forState:UIControlStateHighlighted];
         [textButton addTarget:self action:@selector(didTapButton:) forControlEvents:UIControlEventTouchUpInside];
         
-        [labelArray addObject:[textButton AUTORELEASE]];
+        [labelArray addObject:[textButton autorelease]];
     }
     
-    [self showAtPoint:point inView:view withTitle:title withViewArray:[labelArray AUTORELEASE]];
+    [self showAtPoint:point inView:view withTitle:title withViewArray:[labelArray autorelease]];
 }
 
 - (void)showAtPoint:(CGPoint)point inView:(UIView *)view withStringArray:(NSArray *)stringArray withImageArray:(NSArray *)imageArray
@@ -456,14 +463,14 @@
         [containerView addSubview:imageView];
         [containerView addSubview:label];
         
-        [label RELEASE];
-        [imageView RELEASE];
+        [label release];
+        [imageView release];
         
         [tempViewArray addObject:containerView];
-        [containerView RELEASE];
+        [containerView release];
     }
 
-    return [tempViewArray AUTORELEASE];
+    return [tempViewArray autorelease];
 }
 
 - (void)showAtPoint:(CGPoint)point inView:(UIView *)view withTitle:(NSString *)title withContentView:(UIView *)cView
@@ -491,9 +498,9 @@
     // animate into full size
     // First stage animates to 1.05x normal size, then second stage animates back down to 1x size.
     // This two-stage animation creates a little "pop" on open.
-    [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:0.1f delay:0.f options:UIViewAnimationCurveEaseInOut animations:^{
         self.alpha = 1.f;
-        self.transform = CGAffineTransformMakeScale(1.05f, 1.05f);
+        self.transform = CGAffineTransformMakeScale(1.25f, 1.25f);
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.08f delay:0.f options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.transform = CGAffineTransformIdentity;
@@ -509,7 +516,7 @@
     [self setupLayout:point inView:view];
     
     // animate back to full opacity
-    [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationCurveEaseInOut animations:^{
         self.alpha = 1.f;
     } completion:nil];
 }
@@ -593,7 +600,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
     tap.cancelsTouchesInView = NO; // Allow touches through to a UITableView or other touchable view, as suggested by Dimajp.
     [self addGestureRecognizer:tap];
-    [tap RELEASE];
+    [tap release];
 
     self.userInteractionEnabled = YES;
 }
@@ -622,7 +629,7 @@
     }
     
     if (activityIndicator) {
-        [activityIndicator RELEASE];
+        [activityIndicator release];
         [activityIndicator removeFromSuperview];
         activityIndicator = nil;
     }
@@ -644,7 +651,7 @@
     [UIView animateWithDuration:0.1f animations:^{
         activityIndicator.alpha = 0.f;
     } completion:^(BOOL finished) {
-        [activityIndicator RELEASE];
+        [activityIndicator release];
         [activityIndicator removeFromSuperview];
         activityIndicator = nil;
     }];
@@ -657,7 +664,7 @@
     imageView.frame = CGRectMake(floorf(CGRectGetMidX(contentView.bounds) - image.size.width*0.5f), floorf(CGRectGetMidY(contentView.bounds) - image.size.height*0.5f + ((self.titleView) ? 20 : 0.f)), image.size.width, image.size.height);
     imageView.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
     
-    [contentView addSubview:[imageView AUTORELEASE]];
+    [contentView addSubview:[imageView autorelease]];
     
     if (subviewsArray && (subviewsArray.count > 0)) {
         [UIView animateWithDuration:0.2f animations:^{
@@ -678,7 +685,7 @@
         }
     }
     
-    [UIView animateWithDuration:0.2f delay:0.2f options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.2f delay:0.2f options:UIViewAnimationCurveEaseOut animations:^{
         imageView.alpha = 1.f;
         imageView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
@@ -693,7 +700,7 @@
     imageView.frame = CGRectMake(CGRectGetMidX(contentView.bounds) - 20.f, CGRectGetMidY(contentView.bounds) - 20.f + ((self.titleView) ? 20 : 0.f), 40.f, 40.f);
     imageView.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
     
-    [contentView addSubview:[imageView AUTORELEASE]];
+    [contentView addSubview:[imageView autorelease]];
     
     if (subviewsArray && (subviewsArray.count > 0)) {
         [UIView animateWithDuration:0.1f animations:^{
@@ -708,7 +715,7 @@
         }
     }
     
-    [UIView animateWithDuration:0.1f delay:0.1f options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.1f delay:0.1f options:UIViewAnimationCurveEaseOut animations:^{
         imageView.alpha = 1.f;
         imageView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
@@ -724,7 +731,7 @@
     imageView.frame = CGRectMake(CGRectGetMidX(contentView.bounds) - 20.f, CGRectGetMidY(contentView.bounds) - 20.f + ((self.titleView) ? 20 : 0.f), 40.f, 40.f);
     imageView.transform = CGAffineTransformMakeScale(0.1f, 0.1f);
     
-    [contentView addSubview:[imageView AUTORELEASE]];
+    [contentView addSubview:[imageView autorelease]];
     
     if (subviewsArray && (subviewsArray.count > 0)) {
         [UIView animateWithDuration:0.1f animations:^{
@@ -739,7 +746,7 @@
         }
     }
     
-    [UIView animateWithDuration:0.1f delay:0.1f options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.1f delay:0.1f options:UIViewAnimationCurveEaseOut animations:^{
         imageView.alpha = 1.f;
         imageView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
@@ -753,7 +760,7 @@
 - (void)tapped:(UITapGestureRecognizer *)tap
 {    
     CGPoint point = [tap locationInView:contentView];
-    
+    point.y +=20;
     //NSLog(@"point:(%f,%f)", point.x, point.y);
     
     BOOL found = NO;
@@ -772,9 +779,9 @@
             
             //NSLog(@"Tapped subview:%d", i);
             
-            if ([view isKindOfClass:[UIButton class]]) {
-                return;
-            }
+//            if ([view isKindOfClass:[UIButton class]]) {
+//                return;
+//            }
             
             if (delegate && [delegate respondsToSelector:@selector(popoverView:didSelectItemAtIndex:)]) {
                 [delegate popoverView:self didSelectItemAtIndex:i];
@@ -927,7 +934,7 @@
                                (id)kGradientTopColor.CGColor,
                                (id)kGradientBottomColor.CGColor, nil];
     CGFloat gradientLocations[] = {0, 1};
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (CFTYPECAST(CFArrayRef)gradientColors), gradientLocations);
+    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (CFArrayRef)gradientColors, gradientLocations);
     
     
     //These floats are the top and bottom offsets for the gradient drawing so the drawing includes the arrows.
@@ -993,7 +1000,7 @@
                                        (id)kGradientTitleTopColor.CGColor,
                                        (id)kGradientTitleBottomColor.CGColor, nil];
             CGFloat gradientLocations[] = {0, 1};
-            CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (CFTYPECAST(CFArrayRef)gradientColors), gradientLocations);
+            CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (CFArrayRef)gradientColors, gradientLocations);
             
             
             //These floats are the top and bottom offsets for the gradient drawing so the drawing includes the arrows.
@@ -1023,6 +1030,7 @@
     {
         if (kShowDividersBetweenViews && showDividerRects) {
             if (dividerRects && dividerRects.count > 0) {
+                NSLog(@"adding dividers");
                 for (NSValue *value in dividerRects) {
                     CGRect rect = value.CGRectValue;
                     rect.origin.x += contentView.frame.origin.x;
@@ -1035,15 +1043,22 @@
             }
         }
     }
+}
+
+#pragma mark Helpers
+
+- (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
     
-    //Draw border if we need to
-    //The border is done last because it needs to be drawn on top of everything else
-    if (kDrawBorder) {
-        [kBorderColor setStroke];
-        popoverPath.lineWidth = kBorderWidth;
-        [popoverPath stroke];
-    }
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
     
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 @end
