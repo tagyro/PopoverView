@@ -360,7 +360,7 @@
 {
     NSMutableArray *labelArray = [[NSMutableArray alloc] initWithCapacity:stringArray.count];
     
-    UIFont *font = regular16;
+    UIFont *font = medium17;
     
     for (NSString *string in stringArray) {
         CGSize textSize = [string sizeWithFont:font];
